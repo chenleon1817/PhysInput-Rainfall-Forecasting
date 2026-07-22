@@ -1,0 +1,10 @@
+Model,variant,threshold_mmph,hits,misses,false_alarms,correct_negatives,observed_event_count,predicted_event_count,POD,FAR,CSI,frequency_bias,fbias
+Linear-ARX,M1_linear_arx/linear_arx,10.0,40,115,16,262269,155,56,0.2581,0.2857,0.2339,0.3613,0.3613
+BiLSTM,M2_bilstm/bilstm_best_val_event,10.0,26,129,19,262266,155,45,0.1677,0.4222,0.1494,0.2903,0.2903
+ConvLSTM,M3_convlstm/convlstm_best_val_event,10.0,43,112,27,262258,155,70,0.2774,0.3857,0.2363,0.4516,0.4516
+CNN-BiLSTM-Attention,M4_cnn_bilstm_attention/cnn_bilstm_attention_best_val_event,10.0,66,89,25,262260,155,91,0.4258,0.2747,0.3667,0.5871,0.5871
+CNN-BiLSTM,M5_cnn_bilstm/cnn_bilstm_best_val_event,10.0,68,87,33,262252,155,101,0.4387,0.3267,0.3617,0.6516,0.6516
+PhysInput-Lite,C_cnn_bilstm_physinput_lite/cnn_bilstm_physinput_lite_best_val_event,10.0,55,100,21,262264,155,76,0.3548,0.2763,0.3125,0.4903,0.4903
+PhysInput-Adv3-CNN-BiLSTM,M7_physinput_adv3/cnn_bilstm_physinput_adv3_best_val_event,10.0,52,103,17,262268,155,69,0.3355,0.2464,0.3023,0.4452,0.4452
+PhysInput-Conv3,E_cnn_bilstm_physinput_conv3/cnn_bilstm_physinput_conv3_best_val_event,10.0,65,90,27,262258,155,92,0.4194,0.2935,0.3571,0.5935,0.5935
+PhysInput-All4,B_cnn_bilstm_physinput_all4/cnn_bilstm_physinput_all4_best_val_event,10.0,78,77,58,262227,155,136,0.5032,0.4265,0.3662,0.8774,0.8774

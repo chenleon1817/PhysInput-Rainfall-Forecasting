@@ -1,0 +1,30 @@
+{
+  "figure": "typical_rainfall_process",
+  "process_type": "domain_max",
+  "overall_window_type": "fixed_clock_window",
+  "overall_window_hours": "12:00-22:00 on peak day",
+  "zoom_window_type": "fixed_clock_window",
+  "zoom_window_hours": "13:00-20:00 on peak day",
+  "event_start_index": 3660,
+  "event_end_index_exclusive": 3671,
+  "zoom_start_index": 3661,
+  "zoom_end_index_exclusive": 3669,
+  "peak_index": 3665,
+  "event_start_time": "2025-06-02 12:00:00",
+  "event_end_time": "2025-06-02 22:00:00",
+  "zoom_start_time": "2025-06-02 13:00:00",
+  "zoom_end_time": "2025-06-02 20:00:00",
+  "peak_time": "2025-06-02 17:00:00",
+  "observed_peak_mmph": 28.4805,
+  "heavy_threshold_mmph": 10.0,
+  "models": [
+    "Observed",
+    "CNN-BiLSTM",
+    "PhysInput-Conv3",
+    "PhysInput-All4"
+  ],
+  "exported_variants": [
+    "typical_rainfall_process"
+  ],
+  "note": "Panel (a) uses the fixed same-day clock window 12:00-22:00 and displays the principal time ticks. Panel (b) uses the fixed same-day clock window 13:00-20:00. The figure width is further compressed for a compact double-column layout."
+}

@@ -1,0 +1,710 @@
+{
+  "stage_name": "feature_analysis_physical_context_screening",
+  "generated_at": "2026-07-21T19:02:12+08:00",
+  "selected_input_features_for_all_models": [
+    "T",
+    "P",
+    "RH",
+    "PWV",
+    "U",
+    "V",
+    "DOY",
+    "HOD",
+    "dPWV+",
+    "dPWV-",
+    "lagged_rainfall"
+  ],
+  "shared_derived_predictors": [
+    "lagged_rainfall"
+  ],
+  "physical_context_variables": [
+    "PWV",
+    "T",
+    "P",
+    "V",
+    "RH",
+    "U"
+  ],
+  "physical_process_roles": {
+    "PWV": "moisture availability",
+    "T": "thermodynamic favorability",
+    "P": "near-surface pressure state",
+    "V": "dynamic modulation",
+    "RH": "moisture condition",
+    "U": "dynamic modulation"
+  },
+  "downstream_usage": {
+    "purpose": "Provide screened meteorological variables for downstream physical-diagnostic construction and model configuration.",
+    "diagnostic_combinations_defined_here": false
+  },
+  "wind_representation_selection": {
+    "skipped": false,
+    "keep": [
+      "U",
+      "V"
+    ],
+    "drop": [
+      "WS",
+      "theta_sin",
+      "theta_cos"
+    ],
+    "uv_evaluation": {
+      "skipped": false,
+      "columns": [
+        "U",
+        "V"
+      ],
+      "n": 1544400,
+      "corr_method": "spearman",
+      "variance_threshold": 0.95,
+      "beta": 0.1,
+      "dimensions_95": 2,
+      "effective_rank": 1.8741908449334488,
+      "pc1_explained_ratio": 0.6782560490213927,
+      "complexity": 0.12580915506655121,
+      "pc_target_partialcorr_score": 0.04950354789754327,
+      "representation_score": 0.03692263239088815
+    },
+    "reparameterized_wind_evaluation": {
+      "skipped": false,
+      "columns": [
+        "WS",
+        "theta_sin",
+        "theta_cos"
+      ],
+      "n": 1544400,
+      "corr_method": "spearman",
+      "variance_threshold": 0.95,
+      "beta": 0.1,
+      "dimensions_95": 3,
+      "effective_rank": 2.9405682366158166,
+      "pc1_explained_ratio": 0.40343351055844134,
+      "complexity": 0.029715881692091717,
+      "pc_target_partialcorr_score": 0.03695212700905079,
+      "representation_score": 0.03398053883984162
+    },
+    "bootstrap": {
+      "iterations_requested": 100,
+      "iterations_effective": 100,
+      "rows_per_bootstrap": 10000,
+      "uv_win_rate": 0.73,
+      "difference_mean": 0.0030522913933159063,
+      "difference_ci95": [
+        -0.004866285669328506,
+        0.012443476766209452
+      ],
+      "score_differences": [
+        0.01284648424219656,
+        -0.004594819051556783,
+        0.00250389861326163,
+        0.0019626285354229778,
+        0.00039936973153278585,
+        0.007886327828256656,
+        -0.007618251080425402,
+        0.0049155175896056155,
+        -0.003019116897946185,
+        0.007204566571084585,
+        0.006143106586354724,
+        0.0001399926095018919,
+        -0.003530097751803206,
+        0.00443234771677067,
+        -0.001287421821860972,
+        0.006867357766460816,
+        0.003532530370579594,
+        -0.0029119613821122145,
+        0.0009029543008945498,
+        0.01249189456695362,
+        0.003933604672489842,
+        -0.0002310396882979314,
+        -0.000586622197537634,
+        -0.0006255322778660755,
+        0.011464041479087965,
+        -0.0010936224901186321,
+        -0.0008925630183608674,
+        -0.0038190255002998226,
+        0.010638302533939846,
+        0.009278413342767425,
+        -0.004893857331605658,
+        0.0022929586727008407,
+        0.010560990876649967,
+        0.003654858354476563,
+        -0.0005916233999120439,
+        0.010793864541749722,
+        0.0005695583132607242,
+        -0.006169468383877066,
+        0.008134887845438747,
+        0.0027240323540388967,
+        0.007869484986643867,
+        -0.0030958602508573962,
+        -0.0020970570054214197,
+        0.00688194310030002,
+        0.002284753320865765,
+        0.004875421956934391,
+        0.00012349220183720255,
+        0.0030583634465614074,
+        0.0013821436622497157,
+        0.002490535210655738,
+        0.002323571594927673,
+        0.005156610749279089,
+        -0.0025829089853552124,
+        -0.004835811726811655,
+        0.007295302478590511,
+        -0.00015886884706135113,
+        0.007503568115343383,
+        0.007584344454501568,
+        0.0007753604167016551,
+        0.004208284557300934,
+        0.003490311643269371,
+        0.006550460320573388,
+        0.004082114725491366,
+        0.002384337570861754,
+        0.0023063352093785072,
+        0.004797330793753763,
+        -0.004272126365385778,
+        0.009195045079263858,
+        0.006241753503092383,
+        -0.00011930376975284596,
+        0.0029157737288844354,
+        0.0026408194581004907,
+        0.0021994017364237797,
+        0.00039362318978306,
+        0.0008444761309344545,
+        0.006238075110212224,
+        0.00792726906144963,
+        0.0068934979505128335,
+        -0.0004051216787331613,
+        0.007959567695869245,
+        0.009285959940300265,
+        0.01378548813062555,
+        0.012389962354860638,
+        -0.00206855029567838,
+        -0.0030283241740827367,
+        -0.0009713064008096892,
+        0.0014490351239833388,
+        0.009088847763541484,
+        0.002203657133713049,
+        0.0030464763803069485,
+        -0.00026306705625050303,
+        0.005429640899719486,
+        0.00047564815342087535,
+        0.006449302165019127,
+        0.008590365565262159,
+        0.005611840668009127,
+        0.004562653667073584,
+        0.0004341930255663644,
+        0.0008714370152526317,
+        0.00017009699869199174
+      ]
+    },
+    "score_definition": "difference = representation_score(UV) - representation_score(WS_direction)",
+    "decision_reason": "no_significant_difference_prefer_uv",
+    "decision_statistics": {
+      "epsilon": 0.002,
+      "confidence_interval_crosses_zero": true,
+      "difference_mean": 0.0030522913933159063,
+      "difference_low": -0.004866285669328506,
+      "difference_high": 0.012443476766209452,
+      "uv_win_rate": 0.73
+    },
+    "target": "TP",
+    "controls": [
+      "T",
+      "P",
+      "RH",
+      "PWV",
+      "DOY",
+      "HOD"
+    ],
+    "corr_method": "spearman",
+    "beta": 0.1,
+    "variance_threshold": 0.95
+  },
+  "correlation_analysis": {
+    "skipped": false,
+    "figure": "figures/figure_feature_correlation.pdf",
+    "table": "tables/correlation_key_predictors.csv",
+    "n": 1544400,
+    "features": [
+      "PWV",
+      "T",
+      "V",
+      "RH",
+      "P",
+      "U",
+      "TP"
+    ]
+  },
+  "pca": {
+    "skipped": false,
+    "figure": "figures/figure_pca_loadings.pdf",
+    "loadings_table": "tables/pca_loadings.csv",
+    "heatmap_table": "tables/pca_loading_heatmap.csv",
+    "assignment_table": "tables/pca_mode_assignment.csv",
+    "n": 1544400,
+    "features": [
+      "T",
+      "P",
+      "RH",
+      "PWV",
+      "dPWV+",
+      "dPWV-",
+      "U",
+      "V",
+      "DOY",
+      "HOD"
+    ],
+    "explained_variance_ratio": [
+      0.27209089469580466,
+      0.135447180936522,
+      0.11772202399437465,
+      0.10956743095310037,
+      0.095968786410942,
+      0.09087826166208149,
+      0.06211158866910709,
+      0.05907612236607556,
+      0.04479215212161911,
+      0.012345558190373135
+    ],
+    "cumulative_variance_ratio": [
+      0.27209089469580466,
+      0.4075380756323267,
+      0.5252600996267014,
+      0.6348275305798018,
+      0.7307963169907438,
+      0.8216745786528252,
+      0.8837861673219323,
+      0.9428622896880078,
+      0.9876544418096269,
+      1.0
+    ],
+    "displayed_components": 6,
+    "selected_by_component": {
+      "PC1": [
+        "T",
+        "PWV",
+        "V",
+        "P"
+      ],
+      "PC2": [
+        "RH",
+        "DOY"
+      ],
+      "PC3": [
+        "U"
+      ],
+      "PC4": [
+        "dPWV-"
+      ],
+      "PC5": [
+        "HOD"
+      ],
+      "PC6": [
+        "dPWV+"
+      ]
+    },
+    "selected_all": [
+      "T",
+      "PWV",
+      "V",
+      "P",
+      "RH",
+      "DOY",
+      "U",
+      "dPWV-",
+      "HOD",
+      "dPWV+"
+    ],
+    "analysis_sample_info": {
+      "rows_used": 1544400,
+      "max_rows": null,
+      "random_state": 42
+    }
+  },
+  "importance": {
+    "skipped": false,
+    "n_seeds": 3,
+    "seeds_requested": [
+      42,
+      2024,
+      3407
+    ],
+    "seeds_used": [
+      42,
+      2024,
+      3407
+    ],
+    "figure": "figures/figure_permutation_importance.pdf",
+    "by_seed_table": "tables/feature_importance_by_seed.csv",
+    "multi_seed_table": "tables/feature_importance_multi_seed.csv",
+    "stability_table": "tables/feature_importance_seed_stability.csv",
+    "table": [
+      {
+        "feature": "PWV",
+        "importance_mean": 0.5035270142814575,
+        "importance_std": 0.027574998059590853,
+        "rank_mean": 1.0,
+        "rank_std": 0.0,
+        "top5_frequency": 3,
+        "selected_top5": 1
+      },
+      {
+        "feature": "T",
+        "importance_mean": 0.14722892726254602,
+        "importance_std": 0.008112854416235644,
+        "rank_mean": 2.0,
+        "rank_std": 0.0,
+        "top5_frequency": 3,
+        "selected_top5": 1
+      },
+      {
+        "feature": "P",
+        "importance_mean": 0.02323004965827212,
+        "importance_std": 0.006138545294738725,
+        "rank_mean": 3.6666666666666665,
+        "rank_std": 0.4714045207910317,
+        "top5_frequency": 3,
+        "selected_top5": 1
+      },
+      {
+        "feature": "V",
+        "importance_mean": 0.019126023306215916,
+        "importance_std": 0.005132507067056722,
+        "rank_mean": 4.0,
+        "rank_std": 1.4142135623730951,
+        "top5_frequency": 2,
+        "selected_top5": 1
+      },
+      {
+        "feature": "RH",
+        "importance_mean": 0.01615863743562528,
+        "importance_std": 0.001913301148963308,
+        "rank_mean": 5.0,
+        "rank_std": 0.816496580927726,
+        "top5_frequency": 2,
+        "selected_top5": 1
+      },
+      {
+        "feature": "U",
+        "importance_mean": 0.012804112026467834,
+        "importance_std": 0.003052227996930422,
+        "rank_mean": 6.0,
+        "rank_std": 0.816496580927726,
+        "top5_frequency": 1,
+        "selected_top5": 0
+      },
+      {
+        "feature": "dPWV-",
+        "importance_mean": 0.006121865131407292,
+        "importance_std": 0.008760110602663615,
+        "rank_mean": 6.666666666666667,
+        "rank_std": 1.247219128924647,
+        "top5_frequency": 1,
+        "selected_top5": 0
+      },
+      {
+        "feature": "dPWV+",
+        "importance_mean": 0.0007055473744814467,
+        "importance_std": 0.0035983659792238566,
+        "rank_mean": 7.666666666666667,
+        "rank_std": 0.4714045207910317,
+        "top5_frequency": 0,
+        "selected_top5": 0
+      }
+    ],
+    "baseline_by_seed": [
+      {
+        "seed": 42,
+        "baseline_rmse": 0.5953536858517698,
+        "baseline_r2": 0.476616043217419
+      },
+      {
+        "seed": 2024,
+        "baseline_rmse": 0.5907025127188017,
+        "baseline_r2": 0.4816801315376622
+      },
+      {
+        "seed": 3407,
+        "baseline_rmse": 0.6021654074139209,
+        "baseline_r2": 0.47172281387684256
+      }
+    ]
+  },
+  "candidate_selection": {
+    "skipped": false,
+    "excluded_features": [
+      "DOY",
+      "HOD"
+    ],
+    "top_k": 6,
+    "physical_context_variables": [
+      "PWV",
+      "T",
+      "P",
+      "V",
+      "RH",
+      "U"
+    ],
+    "selected_table": [
+      {
+        "feature": "PWV",
+        "importance_mean": 0.5035270142814575,
+        "importance_std": 0.027574998059590853,
+        "rank_mean": 1.0,
+        "rank_std": 0.0,
+        "top5_frequency": 3,
+        "selected_top5": 1,
+        "physical_process_role": "moisture availability"
+      },
+      {
+        "feature": "T",
+        "importance_mean": 0.14722892726254602,
+        "importance_std": 0.008112854416235644,
+        "rank_mean": 2.0,
+        "rank_std": 0.0,
+        "top5_frequency": 3,
+        "selected_top5": 1,
+        "physical_process_role": "thermodynamic favorability"
+      },
+      {
+        "feature": "P",
+        "importance_mean": 0.02323004965827212,
+        "importance_std": 0.006138545294738725,
+        "rank_mean": 3.6666666666666665,
+        "rank_std": 0.4714045207910317,
+        "top5_frequency": 3,
+        "selected_top5": 1,
+        "physical_process_role": "near-surface pressure state"
+      },
+      {
+        "feature": "V",
+        "importance_mean": 0.019126023306215916,
+        "importance_std": 0.005132507067056722,
+        "rank_mean": 4.0,
+        "rank_std": 1.4142135623730951,
+        "top5_frequency": 2,
+        "selected_top5": 1,
+        "physical_process_role": "dynamic modulation"
+      },
+      {
+        "feature": "RH",
+        "importance_mean": 0.01615863743562528,
+        "importance_std": 0.001913301148963308,
+        "rank_mean": 5.0,
+        "rank_std": 0.816496580927726,
+        "top5_frequency": 2,
+        "selected_top5": 1,
+        "physical_process_role": "moisture condition"
+      },
+      {
+        "feature": "U",
+        "importance_mean": 0.012804112026467834,
+        "importance_std": 0.003052227996930422,
+        "rank_mean": 6.0,
+        "rank_std": 0.816496580927726,
+        "top5_frequency": 1,
+        "selected_top5": 0,
+        "physical_process_role": "dynamic modulation"
+      }
+    ],
+    "full_ranking": [
+      {
+        "feature": "PWV",
+        "importance_mean": 0.5035270142814575,
+        "importance_std": 0.027574998059590853,
+        "rank_mean": 1.0,
+        "rank_std": 0.0,
+        "top5_frequency": 3,
+        "selected_top5": 1
+      },
+      {
+        "feature": "T",
+        "importance_mean": 0.14722892726254602,
+        "importance_std": 0.008112854416235644,
+        "rank_mean": 2.0,
+        "rank_std": 0.0,
+        "top5_frequency": 3,
+        "selected_top5": 1
+      },
+      {
+        "feature": "P",
+        "importance_mean": 0.02323004965827212,
+        "importance_std": 0.006138545294738725,
+        "rank_mean": 3.6666666666666665,
+        "rank_std": 0.4714045207910317,
+        "top5_frequency": 3,
+        "selected_top5": 1
+      },
+      {
+        "feature": "V",
+        "importance_mean": 0.019126023306215916,
+        "importance_std": 0.005132507067056722,
+        "rank_mean": 4.0,
+        "rank_std": 1.4142135623730951,
+        "top5_frequency": 2,
+        "selected_top5": 1
+      },
+      {
+        "feature": "RH",
+        "importance_mean": 0.01615863743562528,
+        "importance_std": 0.001913301148963308,
+        "rank_mean": 5.0,
+        "rank_std": 0.816496580927726,
+        "top5_frequency": 2,
+        "selected_top5": 1
+      },
+      {
+        "feature": "U",
+        "importance_mean": 0.012804112026467834,
+        "importance_std": 0.003052227996930422,
+        "rank_mean": 6.0,
+        "rank_std": 0.816496580927726,
+        "top5_frequency": 1,
+        "selected_top5": 0
+      },
+      {
+        "feature": "dPWV-",
+        "importance_mean": 0.006121865131407292,
+        "importance_std": 0.008760110602663615,
+        "rank_mean": 6.666666666666667,
+        "rank_std": 1.247219128924647,
+        "top5_frequency": 1,
+        "selected_top5": 0
+      },
+      {
+        "feature": "dPWV+",
+        "importance_mean": 0.0007055473744814467,
+        "importance_std": 0.0035983659792238566,
+        "rank_mean": 7.666666666666667,
+        "rank_std": 0.4714045207910317,
+        "top5_frequency": 0,
+        "selected_top5": 0
+      }
+    ]
+  },
+  "redundancy_diagnosis": {
+    "skipped": false,
+    "n_features_available": 6,
+    "n_clean_samples": 1544400,
+    "correlation_threshold": 0.85,
+    "correlation_table": "tables/physical_context_redundancy_corr.csv",
+    "high_redundancy_pairs_table": "tables/physical_context_high_redundancy_pairs.csv",
+    "high_redundancy_pairs": [],
+    "n_high_pairs": 0,
+    "features_checked": [
+      "PWV",
+      "T",
+      "P",
+      "V",
+      "RH",
+      "U"
+    ]
+  },
+  "response_diagnosis": {
+    "skipped": false,
+    "target": "TP",
+    "features": [
+      "PWV",
+      "T",
+      "P",
+      "V",
+      "RH",
+      "U"
+    ],
+    "combined_figure": "figures/figure_rainfall_response.pdf",
+    "individual_outputs": {
+      "PWV": {
+        "figure": "figures/figure_response_PWV.pdf",
+        "table": "tables/response_PWV.csv",
+        "binned_response_spearman": 0.9790209790209792,
+        "physical_process_role": "moisture availability",
+        "n_clean_samples": 1544400,
+        "n_valid_bins": 12
+      },
+      "T": {
+        "figure": "figures/figure_response_T.pdf",
+        "table": "tables/response_T.csv",
+        "binned_response_spearman": 0.6853146853146854,
+        "physical_process_role": "thermodynamic favorability",
+        "n_clean_samples": 1544400,
+        "n_valid_bins": 12
+      },
+      "P": {
+        "figure": "figures/figure_response_P.pdf",
+        "table": "tables/response_P.csv",
+        "binned_response_spearman": -0.7692307692307694,
+        "physical_process_role": "near-surface pressure state",
+        "n_clean_samples": 1544400,
+        "n_valid_bins": 12
+      },
+      "V": {
+        "figure": "figures/figure_response_V.pdf",
+        "table": "tables/response_V.csv",
+        "binned_response_spearman": 0.31468531468531474,
+        "physical_process_role": "dynamic modulation",
+        "n_clean_samples": 1544400,
+        "n_valid_bins": 12
+      },
+      "RH": {
+        "figure": "figures/figure_response_RH.pdf",
+        "table": "tables/response_RH.csv",
+        "binned_response_spearman": 0.9510489510489512,
+        "physical_process_role": "moisture condition",
+        "n_clean_samples": 1544400,
+        "n_valid_bins": 12
+      },
+      "U": {
+        "figure": "figures/figure_response_U.pdf",
+        "table": "tables/response_U.csv",
+        "binned_response_spearman": -0.2937062937062937,
+        "physical_process_role": "dynamic modulation",
+        "n_clean_samples": 1544400,
+        "n_valid_bins": 12
+      }
+    },
+    "ranking_table": [
+      {
+        "feature": "PWV",
+        "binned_response_spearman": 0.9790209790209792,
+        "physical_process_role": "moisture availability"
+      },
+      {
+        "feature": "RH",
+        "binned_response_spearman": 0.9510489510489512,
+        "physical_process_role": "moisture condition"
+      },
+      {
+        "feature": "P",
+        "binned_response_spearman": -0.7692307692307694,
+        "physical_process_role": "near-surface pressure state"
+      },
+      {
+        "feature": "T",
+        "binned_response_spearman": 0.6853146853146854,
+        "physical_process_role": "thermodynamic favorability"
+      },
+      {
+        "feature": "V",
+        "binned_response_spearman": 0.31468531468531474,
+        "physical_process_role": "dynamic modulation"
+      },
+      {
+        "feature": "U",
+        "binned_response_spearman": -0.2937062937062937,
+        "physical_process_role": "dynamic modulation"
+      }
+    ]
+  },
+  "selected_input_summary_table": "tables/selected_input_feature_summary.csv",
+  "split_info": {
+    "split_method": "chronological",
+    "train_end": "2024-06-30 23:59:59",
+    "validation_start": "2024-07-01 00:00:00",
+    "validation_end": "2024-12-31 23:59:59",
+    "test_start": "2025-01-01 00:00:00",
+    "data_time_start": "2020-08-01 00:00:00",
+    "data_time_end": "2025-08-31 23:00:00",
+    "train_rows": 1544400,
+    "validation_rows": 198720,
+    "test_rows": 262440
+  }
+}

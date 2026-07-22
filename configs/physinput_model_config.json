@@ -1,0 +1,26 @@
+{
+  "stage_name": "physinput_model_configuration",
+  "source_feature_analysis_artifact": "../reported_results/feature_analysis/physical_context_selection_config.json",
+  "shared_input_features": ["T", "P", "RH", "PWV", "U", "V", "DOY", "HOD", "dPWV+", "dPWV-", "lagged_rainfall"],
+  "shared_derived_predictors": ["lagged_rainfall"],
+  "physical_diagnostic_features": ["specific_humidity_proxy", "pwv_grad_mag", "wind_convergence", "moisture_advection"],
+  "physinput_variants": {
+    "physinput_lite": ["specific_humidity_proxy", "pwv_grad_mag"],
+    "physinput_adv3": ["specific_humidity_proxy", "pwv_grad_mag", "moisture_advection"],
+    "physinput_conv3": ["specific_humidity_proxy", "pwv_grad_mag", "wind_convergence"],
+    "physinput_all4": ["specific_humidity_proxy", "pwv_grad_mag", "wind_convergence", "moisture_advection"]
+  },
+  "physical_process_roles": {
+    "specific_humidity_proxy": "Specific-humidity proxy derived from pressure, temperature, and relative humidity.",
+    "pwv_grad_mag": "Spatial gradient magnitude of precipitable water vapor.",
+    "wind_convergence": "Horizontal wind convergence.",
+    "moisture_advection": "Horizontal moisture-advection proxy."
+  },
+  "physinput_settings": {
+    "append_diagnostics_as_input_channels": true,
+    "fixed_physical_weights_used": false,
+    "diagnostic_proportions_used": false,
+    "separate_physical_branch_used": false,
+    "test_time_postprocessing_used": false
+  }
+}

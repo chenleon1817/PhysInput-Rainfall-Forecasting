@@ -1,0 +1,35 @@
+{
+  "output_root": "outputs/feature_analysis",
+  "physical_context_selection_config": "outputs/feature_analysis/physical_context_selection_config.json",
+  "figure_manifest": "outputs/feature_analysis/figure_manifest.json",
+  "selected_input_features_for_all_models": [
+    "T",
+    "P",
+    "RH",
+    "PWV",
+    "U",
+    "V",
+    "DOY",
+    "HOD",
+    "dPWV+",
+    "dPWV-",
+    "lagged_rainfall"
+  ],
+  "physical_context_variables": [
+    "PWV",
+    "T",
+    "P",
+    "V",
+    "RH",
+    "U"
+  ],
+  "wind_features_kept": [
+    "U",
+    "V"
+  ],
+  "wind_features_dropped": [
+    "WS",
+    "theta_sin",
+    "theta_cos"
+  ]
+}

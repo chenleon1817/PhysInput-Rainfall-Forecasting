@@ -1,0 +1,14 @@
+{
+  "feature_correlation": "../paper_figures/figure_feature_correlation.pdf",
+  "pca_loadings": "../paper_figures/figure_pca_loadings.pdf",
+  "permutation_importance": "../paper_figures/figure_permutation_importance.pdf",
+  "rainfall_response_combined": "../paper_figures/figure_rainfall_response.pdf",
+  "rainfall_response_individual": {
+    "PWV": "../paper_figures/figure_response_PWV.pdf",
+    "T": "../paper_figures/figure_response_T.pdf",
+    "P": "../paper_figures/figure_response_P.pdf",
+    "V": "../paper_figures/figure_response_V.pdf",
+    "RH": "../paper_figures/figure_response_RH.pdf",
+    "U": "../paper_figures/figure_response_U.pdf"
+  }
+}

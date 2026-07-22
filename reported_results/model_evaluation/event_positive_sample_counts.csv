@@ -1,0 +1,4 @@
+﻿threshold_mm,event_name,positive_grid_hour_samples,total_grid_hour_samples,positive_ratio
+0.1,rain occurrence,65457,262440,0.2494170096021948
+2.5,moderate rainfall,5194,262440,0.019791190367322055
+10.0,heavy rainfall,155,262440,0.0005906111873190062

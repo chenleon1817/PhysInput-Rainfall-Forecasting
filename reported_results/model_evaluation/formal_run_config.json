@@ -1,0 +1,323 @@
+{
+  "task": "ERA5-based regional hourly rainfall-field regression",
+  "input_sequence_length": 12,
+  "grid_shape": [
+    9,
+    5
+  ],
+  "output_grid_points": 45,
+  "round": 23,
+  "round_name": "Focused PhysInput variable-combination CNN-BiLSTM validation",
+  "formal_models": [
+    {
+      "result_key": "M1_linear_arx/linear_arx",
+      "group_name": "M1_linear_arx",
+      "model_key": "linear_arx",
+      "display_name": "Linear-ARX"
+    },
+    {
+      "result_key": "M2_bilstm/bilstm_best_val_event",
+      "group_name": "M2_bilstm",
+      "model_key": "bilstm_best_val_event",
+      "display_name": "BiLSTM"
+    },
+    {
+      "result_key": "M3_convlstm/convlstm_best_val_event",
+      "group_name": "M3_convlstm",
+      "model_key": "convlstm_best_val_event",
+      "display_name": "ConvLSTM"
+    },
+    {
+      "result_key": "M4_cnn_bilstm_attention/cnn_bilstm_attention_best_val_event",
+      "group_name": "M4_cnn_bilstm_attention",
+      "model_key": "cnn_bilstm_attention_best_val_event",
+      "display_name": "CNN-BiLSTM-Attention"
+    },
+    {
+      "result_key": "M5_cnn_bilstm/cnn_bilstm_best_val_event",
+      "group_name": "M5_cnn_bilstm",
+      "model_key": "cnn_bilstm_best_val_event",
+      "display_name": "CNN-BiLSTM"
+    },
+    {
+      "result_key": "C_cnn_bilstm_physinput_lite/cnn_bilstm_physinput_lite_best_val_event",
+      "group_name": "C_cnn_bilstm_physinput_lite",
+      "model_key": "cnn_bilstm_physinput_lite_best_val_event",
+      "display_name": "PhysInput-Lite-CNN-BiLSTM"
+    },
+    {
+      "result_key": "M7_physinput_adv3/cnn_bilstm_physinput_adv3_best_val_event",
+      "group_name": "M7_physinput_adv3",
+      "model_key": "cnn_bilstm_physinput_adv3_best_val_event",
+      "display_name": "PhysInput-Adv3-CNN-BiLSTM"
+    },
+    {
+      "result_key": "E_cnn_bilstm_physinput_conv3/cnn_bilstm_physinput_conv3_best_val_event",
+      "group_name": "E_cnn_bilstm_physinput_conv3",
+      "model_key": "cnn_bilstm_physinput_conv3_best_val_event",
+      "display_name": "PhysInput-Conv3-CNN-BiLSTM"
+    },
+    {
+      "result_key": "B_cnn_bilstm_physinput_all4/cnn_bilstm_physinput_all4_best_val_event",
+      "group_name": "B_cnn_bilstm_physinput_all4",
+      "model_key": "cnn_bilstm_physinput_all4_best_val_event",
+      "display_name": "PhysInput-All4-CNN-BiLSTM"
+    }
+  ],
+  "seed": 42,
+  "result_key_schema": "group_name/variant",
+  "trained_result_keys": [
+    "M1_linear_arx/linear_arx",
+    "M2_bilstm/bilstm_best_val_event",
+    "M3_convlstm/convlstm_best_val_event",
+    "M4_cnn_bilstm_attention/cnn_bilstm_attention_best_val_event",
+    "M5_cnn_bilstm/cnn_bilstm_best_val_event",
+    "C_cnn_bilstm_physinput_lite/cnn_bilstm_physinput_lite_best_val_event",
+    "M7_physinput_adv3/cnn_bilstm_physinput_adv3_best_val_event",
+    "E_cnn_bilstm_physinput_conv3/cnn_bilstm_physinput_conv3_best_val_event",
+    "B_cnn_bilstm_physinput_all4/cnn_bilstm_physinput_all4_best_val_event"
+  ],
+  "experiment_groups": [
+    {
+      "group_name": "M1_linear_arx",
+      "variants": [
+        "linear_arx"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "none",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "M2_bilstm",
+      "variants": [
+        "bilstm"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "none",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "M3_convlstm",
+      "variants": [
+        "convlstm"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "none",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "M4_cnn_bilstm_attention",
+      "variants": [
+        "cnn_bilstm_attention"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "none",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "M5_cnn_bilstm",
+      "variants": [
+        "cnn_bilstm"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "none",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "C_cnn_bilstm_physinput_lite",
+      "variants": [
+        "cnn_bilstm_physinput_lite"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "main_input_physical_diagnostic_augmentation",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [
+        "specific_humidity_proxy",
+        "pwv_grad_mag"
+      ],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "M7_physinput_adv3",
+      "variants": [
+        "cnn_bilstm_physinput_adv3"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "main_input_physical_diagnostic_augmentation",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [
+        "specific_humidity_proxy",
+        "pwv_grad_mag",
+        "moisture_advection"
+      ],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "E_cnn_bilstm_physinput_conv3",
+      "variants": [
+        "cnn_bilstm_physinput_conv3"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "main_input_physical_diagnostic_augmentation",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [
+        "specific_humidity_proxy",
+        "pwv_grad_mag",
+        "wind_convergence"
+      ],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    },
+    {
+      "group_name": "B_cnn_bilstm_physinput_all4",
+      "variants": [
+        "cnn_bilstm_physinput_all4"
+      ],
+      "learning_rate": 0.0005,
+      "physical_fusion_mode": "main_input_physical_diagnostic_augmentation",
+      "physical_encoder_mode": "none",
+      "physical_diagnostic_variables": [
+        "specific_humidity_proxy",
+        "pwv_grad_mag",
+        "wind_convergence",
+        "moisture_advection"
+      ],
+      "enable_shared_event_replay": false,
+      "use_event_checkpoint": true,
+      "use_pg_only_loss": false,
+      "use_pg_only_sample_weight": false
+    }
+  ],
+  "loss": {
+    "M1_linear_arx/linear_arx": "grid_weighted_huber",
+    "M2_bilstm/bilstm_best_val_event": "grid_weighted_huber",
+    "M3_convlstm/convlstm_best_val_event": "grid_weighted_huber",
+    "M4_cnn_bilstm_attention/cnn_bilstm_attention_best_val_event": "grid_weighted_huber",
+    "M5_cnn_bilstm/cnn_bilstm_best_val_event": "grid_weighted_huber",
+    "C_cnn_bilstm_physinput_lite/cnn_bilstm_physinput_lite_best_val_event": "grid_weighted_huber",
+    "M7_physinput_adv3/cnn_bilstm_physinput_adv3_best_val_event": "grid_weighted_huber",
+    "E_cnn_bilstm_physinput_conv3/cnn_bilstm_physinput_conv3_best_val_event": "grid_weighted_huber",
+    "B_cnn_bilstm_physinput_all4/cnn_bilstm_physinput_all4_best_val_event": "grid_weighted_huber"
+  },
+  "checkpoint_selection": {
+    "M1_linear_arx/linear_arx": "best_val_event",
+    "M2_bilstm/bilstm_best_val_event": "best_val_event",
+    "M3_convlstm/convlstm_best_val_event": "best_val_event",
+    "M4_cnn_bilstm_attention/cnn_bilstm_attention_best_val_event": "best_val_event",
+    "M5_cnn_bilstm/cnn_bilstm_best_val_event": "best_val_event",
+    "C_cnn_bilstm_physinput_lite/cnn_bilstm_physinput_lite_best_val_event": "best_val_event",
+    "M7_physinput_adv3/cnn_bilstm_physinput_adv3_best_val_event": "best_val_event",
+    "E_cnn_bilstm_physinput_conv3/cnn_bilstm_physinput_conv3_best_val_event": "best_val_event",
+    "B_cnn_bilstm_physinput_all4/cnn_bilstm_physinput_all4_best_val_event": "best_val_event"
+  },
+  "sample_weighting": {
+    "scope": "all_deep_learning_models",
+    "timing": "train_only",
+    "class_weights": {
+      "no_rain": 1.0,
+      "light_rain": 1.0,
+      "moderate_rain": 1.5,
+      "heavy_rain": 2.0
+    },
+    "event_replay_by_group": {
+      "M1_linear_arx": false,
+      "M2_bilstm": false,
+      "M3_convlstm": false,
+      "M4_cnn_bilstm_attention": false,
+      "M5_cnn_bilstm": false,
+      "C_cnn_bilstm_physinput_lite": false,
+      "M7_physinput_adv3": false,
+      "E_cnn_bilstm_physinput_conv3": false,
+      "B_cnn_bilstm_physinput_all4": false
+    }
+  },
+  "physical_fusion_validation": {
+    "baseline": "cnn_bilstm uses shared_feature_indices only",
+    "physinput_lite": "cnn_bilstm_physinput_lite uses shared predictors plus specific_humidity_proxy and pwv_grad_mag.",
+    "physinput_adv3": "cnn_bilstm_physinput_adv3 uses shared predictors plus specific_humidity_proxy, pwv_grad_mag, and moisture_advection.",
+    "physinput_conv3": "cnn_bilstm_physinput_conv3 uses shared predictors plus specific_humidity_proxy, pwv_grad_mag, and wind_convergence.",
+    "physinput_all4": "cnn_bilstm_physinput_all4 uses shared predictors plus four physical diagnostic variables as input channels.",
+    "gate_or_residual_used": false,
+    "pg_specific_loss": false,
+    "pg_specific_checkpoint": false
+  },
+  "negative_prediction_clip": "evaluation_only",
+  "event_thresholds": [
+    0.1,
+    2.5,
+    10.0
+  ],
+  "selected_input_features_for_all_models": [
+    "T",
+    "P",
+    "RH",
+    "PWV",
+    "U",
+    "V",
+    "DOY",
+    "HOD",
+    "dPWV+",
+    "dPWV-",
+    "lagged_rainfall"
+  ],
+  "pg_physical_diagnostic_variables": [
+    "specific_humidity_proxy",
+    "pwv_grad_mag",
+    "wind_convergence",
+    "moisture_advection"
+  ],
+  "physical_context_variables": [
+    "specific_humidity_proxy",
+    "pwv_grad_mag",
+    "wind_convergence",
+    "moisture_advection"
+  ],
+  "fixed_physical_weights_used": false,
+  "split_info": {
+    "split_method": "chronological",
+    "train_end": "2024-06-30 23:59:59",
+    "validation_start": "2024-07-01 00:00:00",
+    "validation_end": "2024-12-31 23:59:59",
+    "test_start": "2025-01-01 00:00:00",
+    "n_train": 0,
+    "n_validation": 0,
+    "n_test": 0
+  },
+  "sample_weight_stats": {
+    "enabled": true,
+    "method": "y_max_four_class_per_variant"
+  }
+}

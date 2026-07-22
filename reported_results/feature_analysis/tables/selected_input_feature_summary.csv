@@ -1,0 +1,11 @@
+﻿feature,selected_for_shared_input,supported_by_pca,supported_by_importance,feature_group
+T,1,1,1,base
+P,1,1,1,base
+RH,1,1,1,base
+PWV,1,1,1,base
+dPWV+,1,1,1,incremental
+dPWV-,1,1,1,incremental
+U,1,1,1,wind
+V,1,1,1,wind
+DOY,1,1,0,time
+HOD,1,1,0,time

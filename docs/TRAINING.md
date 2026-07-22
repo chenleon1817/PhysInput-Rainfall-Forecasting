@@ -1,0 +1,3 @@
+# Training
+
+The formal suite has Linear-ARX plus eight deep-learning models. The chronological split ends training at 2024-06-30 23:59:59, uses July–December 2024 for validation, and starts testing at 2025-01-01. The formal seed is 42, batch size is 32, learning rate is 0.0005, epochs are 20, and early stopping patience is 8. Training-only five-class sampling is applied before scaling, and four-class sample weights are passed to every deep model. The loss is grid-weighted Huber; checkpoint selection and early stopping use the 10 mm h-1 validation event score. Run `python scripts/05_train_models.py --models all --seed 42`. Debug mode is not a substitute for formal training.

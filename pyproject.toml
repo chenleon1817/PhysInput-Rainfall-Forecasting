@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "physinput-rainfall-forecasting"
+version = "0.1.0"
+description = "Modular regional rainfall-field forecasting workflow with physically derived inputs."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy", "pandas", "scipy", "scikit-learn", "tensorflow", "matplotlib", "seaborn", "joblib", "xarray", "netCDF4", "cdsapi"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools]
+packages = ["core"]
