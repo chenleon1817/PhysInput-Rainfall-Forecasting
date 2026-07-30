@@ -37,4 +37,8 @@ python scripts/05_train_models.py --debug --models cnn_bilstm --output-dir outpu
 
 Run repository checks with `python -m compileall core scripts tests` and `pytest -q`.
 
-The modular repository is the only supported execution path. Original large reference files are intentionally not included in the public repository. The lightweight files in `example_data/` support structural checks only; complete formal data are required to reproduce paper numbers. See `docs/` for data, model, training, evaluation, figure, and reproducibility details. Equivalence status is reported candidly in `docs/EQUIVALENCE_VALIDATION.md`; do not treat an untested stage as validated. A licence has not yet been selected for this repository.
+The modular repository is the only supported execution path. Original large reference files are intentionally not included in the public repository. The lightweight files in `example_data/` support structural checks only; complete formal data are required to reproduce paper numbers. See `docs/` for data, model, training, evaluation, figure, and reproducibility details. Equivalence status is reported candidly in `docs/EQUIVALENCE_VALIDATION.md`; do not treat an untested stage as validated. 
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
