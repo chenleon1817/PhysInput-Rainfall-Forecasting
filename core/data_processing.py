@@ -18,6 +18,38 @@ def add_standard_and_derived_features(frame: pd.DataFrame) -> pd.DataFrame:
         if "HOD" not in result: result["HOD"] = dates.dt.hour
     return result
 
+def add_one_hour_pwv_changes(frame: pd.DataFrame, *, time_col="datetime_utc",
+                             lat_col="V05002", lon_col="V05001",
+                             pwv_col="PWV") -> pd.DataFrame:
+    """Build the formal 1-hour dPWV+/- channels from past and current PWV.
+
+    At the first available hour, no earlier sample is available; the two
+    changes are initialized to zero. This function intentionally REPLACES
+    any legacy V13013/V13014-derived dPWV columns, which may contain the
+    separate 24-hour exploratory extrema indicators.
+
+    Call this on the complete, chronologically continuous regional series
+    *before* train/validation/test splitting to preserve boundary history.
+    """
+    required = (time_col, lat_col, lon_col, pwv_col)
+    missing = [name for name in required if name not in frame.columns]
+    if missing:
+        raise ValueError(f"Missing columns for hourly PWV changes: {missing}")
+    result = frame.copy()
+    result[time_col] = pd.to_datetime(result[time_col], errors="raise")
+    result = result.sort_values([time_col, lat_col, lon_col]).reset_index(drop=True)
+    if result.duplicated([time_col, lat_col, lon_col]).any():
+        raise ValueError("Duplicate time-grid rows in hourly PWV input.")
+    validate_hourly_continuity(result[time_col])
+    values = pd.to_numeric(result[pwv_col], errors="raise")
+    if not np.isfinite(values.to_numpy(dtype=float)).all():
+        raise ValueError("Non-finite PWV values cannot generate hourly changes.")
+    delta = values.groupby([result[lat_col], result[lon_col]], sort=False).diff()
+    result["dPWV+"] = delta.clip(lower=0).fillna(0.0).to_numpy(dtype=np.float32)
+    result["dPWV-"] = (-delta).clip(lower=0).fillna(0.0).to_numpy(dtype=np.float32)
+    return result
+
+
 def load_annual_csv_data(data_dir: str | Path, years) -> pd.DataFrame:
     paths = [Path(data_dir) / f"data_{int(year)}.csv" for year in years]
     missing = [str(path) for path in paths if not path.is_file()]
@@ -54,6 +86,9 @@ def prepare_regional_grid_sequences(data_frame: pd.DataFrame, input_hours=12, ta
     data = add_standard_and_derived_features(data)
     if not {"DOY", "HOD"}.issubset(data.columns):
         raise ValueError("DOY and HOD must exist before physical diagnostics and sequence construction.")
+    # Recompute the formal 1-hour PWV channels from the complete time series.
+    # Never use legacy V13013/V13014 extrema values as formal model inputs.
+    data = add_one_hour_pwv_changes(data)
     data = add_physical_diagnostic_features(data, use_spatial_diagnostics=True)
     if rain_col not in data: raise ValueError(f"Missing rainfall target column: {rain_col}")
     features = list(selected_features or [])
