@@ -8,6 +8,10 @@ grid, and writes one CSV file per year.
 Two naming modes are supported:
 - legacy: reproduces the Vxxxxx column names used by the original model data.
 - semantic: writes descriptive English column names.
+
+Formal model CSV exports default to consecutive one-hour PWV changes.
+The original 24-hour extrema indicators remain available through an explicit
+legacy_24h switch for historical exploratory analysis.
 """
 
 from __future__ import annotations
@@ -91,6 +95,13 @@ def parse_args() -> argparse.Namespace:
         help="Column naming convention used in the output CSV files.",
     )
     parser.add_argument(
+        "--pwv-mode",
+        choices=("hourly_1h", "legacy_24h"),
+        default="hourly_1h",
+        help=("PWV change fields for exported CSV: hourly_1h is the formal "
+              "model input; legacy_24h preserves exploratory extrema fields."),
+    )
+    parser.add_argument(
         "--float-format",
         default="%.6f",
         help="Floating-point format passed to pandas.to_csv.",
@@ -123,6 +134,38 @@ def validate_dataset(ds: xr.Dataset) -> None:
     n_lon = int(ds.sizes[LONGITUDE_NAME])
     if (n_lat, n_lon) != (9, 5):
         raise ValueError(f"Expected a 9 x 5 grid, found {n_lat} x {n_lon}.")
+
+
+def set_export_pwv_mode(ds: xr.Dataset, mode: str) -> xr.Dataset:
+    """Select CSV PWV input fields without changing the source NetCDF.
+
+    One-hour deltas are calculated on the FULL continuous time axis, before
+    annual slicing. A zero change is assigned at the first available hour,
+    which lacks previous-hour PWV in this dataset.
+    """
+    if mode == "legacy_24h":
+        return ds
+    if mode != "hourly_1h":
+        raise ValueError(f"Unsupported PWV export mode: {mode}")
+    pwv = ds["tcwv"]
+    if not np.isfinite(pwv.values).all():
+        raise ValueError("PWV contains non-finite values.")
+    times = ds[TIME_NAME].values.astype("datetime64[h]")
+    if len(times) < 2 or not np.all(np.diff(times) == np.timedelta64(1, "h")):
+        raise ValueError("Hourly PWV export requires a continuous hourly time axis.")
+    delta = pwv - pwv.shift({TIME_NAME: 1})
+    result = ds.copy()
+    result["pwv_growth_rate"] = delta.clip(min=0.0).fillna(0.0).astype("float32")
+    result["pwv_decline_rate"] = (-delta).clip(min=0.0).fillna(0.0).astype("float32")
+    result["pwv_growth_rate"].attrs = {
+        "long_name": "One-hour positive PWV change (formal model input)",
+        "units": "kg m-2 per 1 h", "method": "max(PWV[t]-PWV[t-1], 0)",
+    }
+    result["pwv_decline_rate"].attrs = {
+        "long_name": "One-hour negative PWV change magnitude (formal model input)",
+        "units": "kg m-2 per 1 h", "method": "max(PWV[t-1]-PWV[t], 0)",
+    }
+    return result
 
 
 def validate_long_table(frame: pd.DataFrame) -> None:
@@ -278,6 +321,7 @@ def main() -> None:
 
     validate_dataset(ds)
     ds = ds.sortby(TIME_NAME).sortby(LATITUDE_NAME).sortby(LONGITUDE_NAME)
+    ds = set_export_pwv_mode(ds, args.pwv_mode)
 
     years = sorted(
         np.unique(pd.DatetimeIndex(ds[TIME_NAME].values).year).tolist()
@@ -297,6 +341,8 @@ def main() -> None:
     manifest = {
         "source_netcdf": str(args.input_file),
         "naming": args.naming,
+        "pwv_mode": args.pwv_mode,
+        "pwv_first_hour_policy": "zero_at_first_available_timestamp" if args.pwv_mode == "hourly_1h" else None,
         "grid_cells_per_hour": 45,
         "files": records,
     }
