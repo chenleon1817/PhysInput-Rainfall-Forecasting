@@ -1,6 +1,23 @@
 # PhysInput-Rainfall-Forecasting
 
-This repository accompanies a Pattern Analysis and Applications submission on next-hour rainfall-field prediction over a 9 x 5 grid in southern Guangxi, China. It uses 12 preceding hourly ERA5 regional fields to predict rainfall at all 45 cells.
+This repository provides a modular TensorFlow implementation and selected archived experimental results for regional hourly rainfall-field forecasting with physically motivated diagnostic input augmentation.
+
+The study uses 12 preceding hours of ERA5 meteorological information to predict next-hour rainfall over a 9 × 5 grid in southern Guangxi, China.
+
+Four diagnostic inputs are considered:
+
+- q*: near-surface moisture proxy
+- G: precipitable water vapour (PWV) gradient magnitude
+- C: 10 m horizontal wind convergence
+- A: PWV advection proxy
+
+Five configurations are evaluated using a shared CNN–BiLSTM architecture: CNN-BiLSTM, PhysInput-Lite, PhysInput-Adv3, PhysInput-Conv3, and PhysInput-All4. Additional reference models are included for comparison.
+
+The study focuses on configuration-dependent forecasting performance, including continuous rainfall prediction errors and heavy-rainfall detection trade-offs.
+
+The repository contains the modular implementation, lightweight example data, selected reported results, and validation documentation. The complete ERA5 datasets, original model checkpoints, and full formal prediction archives are not included.
+
+The publicly available implementation has undergone selected unit and structural tests. Complete behavioral equivalence with the original formal training workflow has not yet been established.
 
 ## Workflow
 
