@@ -1,6 +1,14 @@
 # Code-Paper Consistency
 
-The public code uses the stated nine-model order, 12-hour/one-hour setup, 9 x 5 grid, fixed temporal split, three thresholds, four diagnostics, and required figure selections. The original source contained conflicting historical model registry entries beyond the formal suite; those are recorded in the audit and excluded from the current workflow. The missing original feature-analysis artifact prevents a direct artifact-to-paper numerical audit.
+The public repository defines the nine-model registry, 12-hour input window, one-hour forecast horizon, 9 × 5 grid, chronological data split, and categorical verification thresholds.
+
+The archived feature-analysis configuration is available at `reported_results/feature_analysis/physical_context_selection_config.json`.
+
+The revised manuscript investigates four meteorologically motivated diagnostic inputs through hierarchical configurations of the shared CNN-BiLSTM backbone.
+
+The public plotting scripts do not reproduce the complete revised manuscript figure set.
+
+The historical formal training-input construction and the public modular preprocessing implementation require further behavioral-equivalence verification, particularly for the dPWV input definitions.
 
 ## Diagnostic Input Configurations
 
