@@ -1,5 +1,25 @@
 # Paper Figures
 
-`scripts/07_make_paper_figures.py` is the sole formal figure entry. It needs the event metrics table and long predictions for CNN-BiLSTM, PhysInput-Conv3, and PhysInput-All4. Heatmaps show Linear-ARX, BiLSTM, ConvLSTM, CNN-BiLSTM-Attention, CNN-BiLSTM, and PhysInput-All4. The rainfall-process figure uses fixed peak-day windows of 12:00–22:00 and 13:00–20:00 and writes PDF, SVG, and 600-dpi PNG files. Generated outputs remain separate from reported results.
+## Revised Manuscript
 
-It consumes evaluation outputs only; it never chooses a replacement event window.
+The revised manuscript contains seven main figures (Figures 1–7) and five supplementary figures (Figures S1–S5).
+
+The main figures cover the study area, exploratory predictor analysis, diagnostic distributions, forecasting architecture, model verification, spatial rainfall comparison, and temporal rainfall evolution.
+
+The supplementary figures include predictor correlations, diagnostic spatial fields, multithreshold verification, configuration-dependent metric differences, and event-scale heavy-rainfall detection.
+
+## Public Plotting Utility
+
+The script `scripts/07_make_paper_figures.py` is an archived modular plotting utility.
+
+Its current outputs include an event-metric heatmap and a historical two-window rainfall time-series layout. It does not generate the complete revised manuscript figure set.
+
+## Archived Figures
+
+The files in `reported_results/paper_figures/` are preserved historical plotting outputs.
+
+Some archived PCA, event-verification, and rainfall-process figures correspond to earlier manuscript layouts.
+
+These files should not be treated as the complete final submission-ready figures without comparison against the revised manuscript.
+
+Final publication figures are maintained separately from the public historical plotting archive.
