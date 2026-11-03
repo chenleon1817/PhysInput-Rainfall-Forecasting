@@ -27,3 +27,20 @@ Large artifacts intentionally omitted:
 
 The omitted model outputs can be regenerated with the scripts in `scripts/`
 when the complete input data are available.
+
+## Historical and Current Manuscript Results
+
+The PDF figures in `paper_figures/` are preserved historical plotting outputs. They do not represent the complete figure set of the revised manuscript.
+
+Some archived PCA, event-heatmap, and rainfall time-window figures correspond to previous manuscript layouts.
+
+The six-model presentation tables in `model_evaluation/` contain selected historical results.
+
+The archived nine-model fixed-seed metric records are available in:
+
+- `formal_metrics_by_seed.csv`
+- `formal_event_metrics_by_seed.csv`
+
+These archived records should be interpreted with their corresponding model, seed, threshold, and experimental configuration.
+
+The complete formal prediction arrays and trained model checkpoints are not included in the public repository.
