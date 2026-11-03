@@ -1,0 +1,91 @@
+"""Formal 1 h PWV construction, vs historical 24 h exploratory fields."""
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import pytest
+import xarray as xr
+
+from core.data_processing import add_one_hour_pwv_changes, prepare_regional_grid_sequences
+
+
+def _rows():
+    rows = []
+    # Deliberately place year boundary between hourly samples.
+    times = pd.date_range("2024-12-31 22:00", periods=5, freq="h")
+    for hour, time in enumerate(times):
+        for lat in (21.0, 21.25):
+            for lon in (108.0, 108.25):
+                pwv = (30.0 if lat == 21.0 else 40.0) + (hour if lon == 108.0 else -hour)
+                rows.append({"datetime_utc": time, "V05002": lat, "V05001": lon,
+                             "PWV": pwv, "T": 20.0, "P": 1010.0, "RH": 70.0,
+                             "U": 1.0, "V": 0.0, "V13011": float(hour),
+                             "V13013": 999.0, "V13014": -777.0})
+    return pd.DataFrame(rows)
+
+
+def test_formal_changes_overwrite_historical_csv_columns():
+    data = _rows()
+    out = add_one_hour_pwv_changes(data)
+    for (lat, lon), part in out.groupby(["V05002", "V05001"]):
+        assert part.iloc[0]["dPWV+"] == 0 and part.iloc[0]["dPWV-"] == 0
+        if lon == 108.0:
+            assert np.all(part["dPWV+"].to_numpy()[1:] == 1)
+            assert np.all(part["dPWV-"].to_numpy()[1:] == 0)
+        else:
+            assert np.all(part["dPWV+"].to_numpy()[1:] == 0)
+            assert np.all(part["dPWV-"].to_numpy()[1:] == 1)
+    assert out["dPWV-"].ge(0).all()
+
+
+def test_sequences_use_hourly_not_legacy_values():
+    pack = prepare_regional_grid_sequences(
+        _rows(), input_hours=3, grid_shape=(2, 2),
+        selected_features=["PWV", "dPWV+", "dPWV-"],
+    )
+    assert pack["X_seq"].shape == (2, 3, 2, 2, 3)
+    assert (pack["X_seq"][0, :, :, :, 1:] < 999).all()
+    assert pack["X_seq"][0, 1, 0, 0, 1] == 1
+    assert pack["X_seq"][0, 1, 0, 1, 2] == 1
+    assert pd.Timestamp(pack["valid_times"][0]) == pd.Timestamp("2025-01-01 01:00")
+
+
+def test_missing_hour_rejected_not_treated_as_one_hour_change():
+    data = _rows()
+    data = data[data["datetime_utc"] != pd.Timestamp("2025-01-01 00:00")]
+    with pytest.raises(ValueError, match="continuous"):
+        add_one_hour_pwv_changes(data)
+
+
+def test_duplicate_grid_cell_rejected():
+    data = _rows()
+    data = pd.concat([data, data.iloc[[0]]], ignore_index=True)
+    with pytest.raises(ValueError, match="Duplicate"):
+        add_one_hour_pwv_changes(data)
+
+
+def _export_module():
+    filename = Path(__file__).resolve().parents[1] / "scripts" / "03_export_model_csv.py"
+    spec = importlib.util.spec_from_file_location("annual_export", filename)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_export_mode_preserves_legacy_only_when_requested():
+    mod = _export_module()
+    times = pd.date_range("2024-12-31 23:00", periods=3, freq="h")
+    arr = np.array([[[10]], [[13]], [[9]]], dtype=float)
+    ds = xr.Dataset({"tcwv": (("valid_time", "latitude", "longitude"), arr),
+                     "pwv_growth_rate": (("valid_time", "latitude", "longitude"), arr * 0 + 100),
+                     "pwv_decline_rate": (("valid_time", "latitude", "longitude"), arr * 0 - 50)},
+                    coords={"valid_time": times, "latitude": [21.0], "longitude": [108.0]})
+    hourly = mod.set_export_pwv_mode(ds, "hourly_1h")
+    assert hourly["pwv_growth_rate"].values[:, 0, 0].tolist() == [0, 3, 0]
+    assert hourly["pwv_decline_rate"].values[:, 0, 0].tolist() == [0, 0, 4]
+    assert mod.set_export_pwv_mode(ds, "legacy_24h") is ds
+    assert (ds["pwv_growth_rate"].values == 100).all()  # original data untouched
+    assert (ds["pwv_decline_rate"].values == -50).all()
