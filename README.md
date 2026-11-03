@@ -21,7 +21,7 @@ The publicly available implementation has undergone selected unit and structural
 
 ## Workflow
 
-This repository trains nine formal models from 12 hourly input fields to predict the next hour over a 9 x 5 grid. The formal split is train through 2024-06-30, validation from 2024-07-01 through 2024-12-31, and test from 2025-01-01 onward.
+The modular workflow supports nine forecasting configurations using the preceding 12 hourly time steps to predict the next-hour rainfall field over a 9 × 5 grid.
 
 The formal model set is Linear-ARX, BiLSTM, ConvLSTM,
 CNN-BiLSTM-Attention, CNN-BiLSTM, PhysInput-Lite, PhysInput-Adv3,
@@ -55,6 +55,20 @@ python scripts/05_train_models.py --debug --models cnn_bilstm --output-dir outpu
 Run repository checks with `python -m compileall core scripts tests` and `pytest -q`.
 
 The modular repository is the only supported execution path. Original large reference files are intentionally not included in the public repository. The lightweight files in `example_data/` support structural checks only; complete formal data are required to reproduce paper numbers. See `docs/` for data, model, training, evaluation, figure, and reproducibility details. Equivalence status is reported candidly in `docs/EQUIVALENCE_VALIDATION.md`; do not treat an untested stage as validated. 
+
+## Figure Generation Scope
+
+The public script `scripts/07_make_paper_figures.py` produces historical plotting layouts rather than the complete revised manuscript figure set.
+
+See `docs/PAPER_FIGURES.md` for details.
+
+## Implementation and Reproducibility Scope
+
+The public modular preprocessing workflow has not yet been fully reconciled with the historical formal training-input construction, including the dPWV input definitions.
+
+The archived formal results and the public implementation have different validation scopes. Passing repository unit tests does not establish complete end-to-end reproduction of the manuscript results.
+
+See `docs/REPRODUCIBILITY.md` and `docs/EQUIVALENCE_VALIDATION.md` for further details.
 
 ## License
 
