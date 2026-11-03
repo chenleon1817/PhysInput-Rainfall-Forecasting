@@ -18,6 +18,14 @@ included here.
 | Metrics | all outputs | Existing metric unit tests passed; no external comparison run | exact test cases |
 | Figure inputs | CSV content/window | Existing figure-output unit test passed; no external comparison run | exact test cases |
 
+## Interpretation of Validation Status
+
+The validation table describes the scope of checks performed on the public modular implementation.
+
+A passed unit test confirms the corresponding test assertions only. Stages without direct old-versus-new comparisons remain unverified for behavioral equivalence.
+
+The numerical manuscript results were obtained from the archived formal experimental workflow. Their internal consistency has been evaluated separately and should not be interpreted as proof of complete equivalence between the public modular implementation and the original training environment.
+
 The required original `regional_model.py`, `training.py`, `training_utils.py`,
 `configs.py`, and `runtime_utils.py` references were not present in the
 provided workspace at validation time. Consequently this repository must not
